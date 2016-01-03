@@ -10,7 +10,8 @@
         android:layout_height="180dp"
         android:layout_gravity="center"
         android:layout_marginTop="50dp"
-        android:background="@mipmap/logo_login">
+        android:background="@mipmap/logo_login"
+        >
     </ImageView>
 
     <LinearLayout
@@ -37,6 +38,7 @@
                         android:id="@+id/email"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:drawableLeft=""
                         android:hint="@string/prompt_email"
                         android:inputType="textEmailAddress"
                         android:maxLines="1"
