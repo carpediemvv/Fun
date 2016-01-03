@@ -12,10 +12,9 @@ import android.view.MenuItem;
 import android.widget.Toast;
 
 import com.shexun123.fun.R;
-import com.shexun123.fun.bean.Person;
+import com.shexun123.fun.utils.IntentUtils;
 
 import cn.bmob.v3.Bmob;
-import cn.bmob.v3.listener.SaveListener;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -56,7 +55,7 @@ public class MainActivity extends AppCompatActivity
      */
     @Override
     public void onBackPressed() {
-      //  Toast.makeText(this,"ahaddsdfsfdgfdgsh",Toast.LENGTH_SHORT).show();
+        //  Toast.makeText(this,"ahaddsdfsfdgfdgsh",Toast.LENGTH_SHORT).show();
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
@@ -81,23 +80,8 @@ public class MainActivity extends AppCompatActivity
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
-            Toast.makeText(this,"ceshiyixia",Toast.LENGTH_SHORT).show();
-            Person p2 = new Person();
-            p2.setName("lucky");
-            p2.setAddress("北京海淀");
-            p2.save(this, new SaveListener() {
-                @Override
-                public void onSuccess() {
-                    // TODO Auto-generated method stub
-                    Toast.makeText(MainActivity.this,"添加数据成功，返回objectId为：",Toast.LENGTH_SHORT).show();
-                }
-
-                @Override
-                public void onFailure(int code, String msg) {
-                    // TODO Auto-generated method stub
-                    Toast.makeText(MainActivity.this,"创建数据失败：",Toast.LENGTH_SHORT).show();
-                }
-            });
+            Toast.makeText(this, "ceshiyixia", Toast.LENGTH_SHORT).show();
+            IntentUtils.startActivity(this,LoginActivity.class);
         }
 
         return super.onOptionsItemSelected(item);
