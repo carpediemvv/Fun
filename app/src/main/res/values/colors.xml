@@ -6,4 +6,7 @@
     <!--登录界面颜色-->
     <color name="login_bg_btn_normal_color">#FF12c3ef</color>
     <color name="login_bg_btn_press_color">#FF12c3e0</color>
+    <!--全局背景基色-->
+    <color name="all_base_back">#FF12c3ef</color>
+
 </resources>

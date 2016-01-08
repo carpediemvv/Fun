@@ -6,7 +6,7 @@ android {
 
     defaultConfig {
         applicationId "com.shexun123.fun"
-        minSdkVersion 19
+        minSdkVersion 21
         targetSdkVersion 23
         versionCode 1
         versionName "1.0"
@@ -39,4 +39,5 @@ dependencies {
     //bmob-sms ：Bmob单独为短信服务提供的包
     compile 'cn.bmob.android:bmob-sms:1.0.1'
     compile 'com.jakewharton:butterknife:7.0.1'
+    compile 'com.github.dmytrodanylyk.android-process-button:library:1.0.4'
 }
