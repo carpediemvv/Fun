@@ -113,8 +113,6 @@ public class UserRegisterDialogFragment extends DialogFragment implements View.O
         mBtnRegister.setOnClickListener(this);
     }
 
-
-
     @Override
     public void onClick(View v) {
         switch (v.getId()) {

@@ -15,6 +15,7 @@ import android.widget.Toast;
 import com.dd.processbutton.iml.ActionProcessButton;
 import com.shexun123.fun.R;
 import com.shexun123.fun.bean.UserBO;
+import com.shexun123.fun.utils.CacheUtils;
 import com.shexun123.fun.utils.IntentUtils;
 import com.shexun123.fun.utils.ProgressGenerator;
 import com.shexun123.fun.view.viewimpl.fragment.UserRegisterDialogFragment;
@@ -112,10 +113,7 @@ public class LoginActivity extends BaseActivity implements ProgressGenerator.OnC
             @Override
             public void onClick(View v) {
                 //   progressGenerator.start(mBtnSignIn);
-
                 hideKeyboard();//隐藏键盘
-                mBtnSignIn.setProgress(99);
-                mBtnSignIn.setEnabled(false);
                 toLogin();
             }
 
@@ -127,8 +125,8 @@ public class LoginActivity extends BaseActivity implements ProgressGenerator.OnC
      * 登录后台
      */
     private void toLogin() {
-        String mPhoneNumberString = mPhoneNumber.getText().toString();
-        String mPasswordString = mPassword.getText().toString();
+        final String mPhoneNumberString = mPhoneNumber.getText().toString();
+        final String mPasswordString = mPassword.getText().toString();
         if (TextUtils.isEmpty(mPhoneNumberString)) {
             Toast.makeText(this, "请输入用手机号", Toast.LENGTH_SHORT).show();
             return;
@@ -137,6 +135,8 @@ public class LoginActivity extends BaseActivity implements ProgressGenerator.OnC
             Toast.makeText(this, "请输入密码", Toast.LENGTH_SHORT).show();
             return;
         }
+        mBtnSignIn.setProgress(99);
+        mBtnSignIn.setEnabled(false);
         BmobUser.loginByAccount(LoginActivity.this, mPhoneNumberString, mPasswordString, new LogInListener<UserBO>() {
             @Override
             public void done(UserBO userBO, BmobException e) {
@@ -145,6 +145,8 @@ public class LoginActivity extends BaseActivity implements ProgressGenerator.OnC
                     // CacheUtils.putString(LoginActivity.this, LOGIN, mPassWord);
                     //CacheUtils.putString(LoginActivity.this, LOGINNAME, mUserName1);
                     IntentUtils.startActivityAndFinish(LoginActivity.this, MainActivity.class);
+                    CacheUtils.putString(LoginActivity.this, "loginPhoneNumber", mPhoneNumberString);
+                    CacheUtils.putString(LoginActivity.this,"loginPassWord",mPasswordString);
                 } else {
                     switch (e.getErrorCode()) {
                         case 101:

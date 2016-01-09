@@ -25,7 +25,7 @@
             android:layout_centerInParent="true"
             android:layout_gravity="center"
             android:textColor="@color/all_base_back"
-            android:textSize="20sp"
+            android:textSize="22sp"
             android:textStyle="bold"/>
     </android.support.v7.widget.Toolbar>
 

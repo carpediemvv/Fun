@@ -4,7 +4,7 @@
     <group android:checkableBehavior="single">
         <item
             android:id="@+id/nav_camara"
-            android:icon="@android:drawable/ic_menu_camera"
+            android:icon="@drawable/ic_clear_black_36dp"
             android:title="Import"/>
         <item
             android:id="@+id/nav_gallery"
@@ -20,7 +20,7 @@
             android:title="Tools"/>
     </group>
 
-    <item android:title="Communicate">
+    <item android:title="">
         <menu>
             <item
                 android:id="@+id/nav_share"

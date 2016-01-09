@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.Window;
 
 import com.shexun123.fun.R;
+import com.shexun123.fun.utils.CacheUtils;
 import com.shexun123.fun.utils.IntentUtils;
 
 public class SplashActivity extends Activity {
@@ -19,7 +20,14 @@ public class SplashActivity extends Activity {
     }
 
     private void init() {
-        IntentUtils.startActivityAndFinishForDelay(this,LoginActivity.class,1000);
+        String phoneNumber = CacheUtils.getString(SplashActivity.this, "loginPhoneNumber", "null");
+        if(phoneNumber=="null"){
+            IntentUtils.startActivityAndFinishForDelay(this,LoginActivity.class,1000);
+        }else {
+            IntentUtils.startActivityAndFinishForDelay(this,MainActivity.class,500);
+
+        }
+
     }
 
 }
