@@ -2,13 +2,13 @@ package com.shexun123.fun.view.viewimpl.fragment;
 
 import android.app.DialogFragment;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TextInputLayout;
 import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.DisplayMetrics;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,6 +20,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.shexun123.fun.R;
+import com.shexun123.fun.bean.UserBO;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -27,7 +28,6 @@ import java.util.regex.Pattern;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import cn.bmob.v3.BmobSMS;
-import cn.bmob.v3.BmobUser;
 import cn.bmob.v3.exception.BmobException;
 import cn.bmob.v3.listener.RequestSMSCodeListener;
 import cn.bmob.v3.listener.SaveListener;
@@ -113,11 +113,7 @@ public class UserRegisterDialogFragment extends DialogFragment implements View.O
         mBtnRegister.setOnClickListener(this);
     }
 
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        ButterKnife.unbind(this);
-    }
+
 
     @Override
     public void onClick(View v) {
@@ -130,7 +126,6 @@ public class UserRegisterDialogFragment extends DialogFragment implements View.O
                 break;
             case R.id.btn_register:
                 toRegister();
-                Toast.makeText(getActivity(), "注册44失败", Toast.LENGTH_SHORT).show();
                 break;
         }
     }
@@ -143,50 +138,31 @@ public class UserRegisterDialogFragment extends DialogFragment implements View.O
         mUserPasswordRegister = mEtPasswordRegister.getText().toString().trim();
         mPhoneNum = mEtPhone.getText().toString().trim();
         mVerifyCode = mEtVerifyCode.getText().toString().trim();
-        Toast.makeText(getActivity(),"注册失败", Toast.LENGTH_SHORT).show();
-        BmobUser userBO = new BmobUser();
+        UserBO userBO = new UserBO();
+        userBO.setMobilePhoneNumber(mPhoneNum);
         userBO.setUsername(mUserNameRegister);
         userBO.setPassword(mUserPasswordRegister);
-        Log.e("smile", "用户登陆成功hahhaa" + mUserNameRegister + mUserPasswordRegister + mPhoneNum + mVerifyCode);
-        userBO.signOrLogin(getActivity(), "验证码", new SaveListener() {
+        userBO.signOrLogin(getActivity(), mVerifyCode, new SaveListener() {
 
             @Override
             public void onSuccess() {
                 // TODO Auto-generated method stub
                 Toast.makeText(getActivity(), "chenggong", Toast.LENGTH_SHORT).show();
                 dismiss();
-                Log.e("smile", "" + mUserNameRegister + "-" + mUserPasswordRegister + "-" +mVerifyCode+ mPhoneNum);
             }
 
             @Override
             public void onFailure(int code, String msg) {
                 // TODO Auto-generated method stub
-                Log.e("smile", "错误码：" + code + ",错误原因：" + msg+"" + mUserNameRegister + "-" + mUserPasswordRegister + "-" +mVerifyCode+ mPhoneNum);
-
-                Toast.makeText(getActivity(),"错误码：" + code + ",错误原因：" + msg , Toast.LENGTH_SHORT).show();
+                Toast.makeText(getActivity(),"注册失败", Toast.LENGTH_SHORT).show();
 
             }
         });
-      /*  userBO.signUp(getActivity(), new SaveListener() {
-            @Override
-            public void onSuccess() {
-                dismiss();
-
-            }
-
-            @Override
-            public void onFailure(int i, String s) {
-                if (i == 202) {
-                    Toast.makeText(getActivity(), "用户已经注册", Toast.LENGTH_SHORT).show();
-                } else {
-                    Toast.makeText(getActivity(), "注册失败", Toast.LENGTH_SHORT).show();
-
-                }
-
-            }
-        });*/
     }
 
+    /**
+     * 检验是否是手机号
+     */
     private void verifyPhoneNumber() {
         mEtPhone.addTextChangedListener(new TextWatcher() {
             @Override
@@ -199,14 +175,12 @@ public class UserRegisterDialogFragment extends DialogFragment implements View.O
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
                 //检查实际是否匹配，由自己实现
                 if (!checkType(charSequence.toString())) {
-                    Log.e("Error", "RegisterActivity" + "检查实际是否匹配，由自己实现");
                     mEtPhoneHolder.setErrorEnabled(true);
                     mEtPhoneHolder.setError("手机号码格式不正确");
                     mBtnSend.setEnabled(false);
                     return;
                 } else {
                     mEtPhoneHolder.setErrorEnabled(false);
-                    Log.e("Error", "RegisterActivity" + "zhqwngfasong");
                     mBtnSend.setEnabled(true);
 
                 }
@@ -229,7 +203,22 @@ public class UserRegisterDialogFragment extends DialogFragment implements View.O
         Matcher m = p.matcher(mobiles);
         return m.matches();
     }
+    /**
+     * 倒计时
+     */
+    private CountDownTimer timer = new CountDownTimer(60000, 1000) {
 
+        @Override
+        public void onTick(long millisUntilFinished) {
+            mBtnSend.setText((millisUntilFinished / 1000) + "秒后可重发");
+        }
+
+        @Override
+        public void onFinish() {
+            mBtnSend.setEnabled(true);
+            mBtnSend.setText("获取验证码");
+        }
+    };
     /**
      * 发送验证码
      */
@@ -242,16 +231,21 @@ public class UserRegisterDialogFragment extends DialogFragment implements View.O
 
             @Override
             public void done(Integer integer, BmobException e) {
-                Log.e("Error:", "BmobSMS:" + integer);
                 if (e == null) {//验证码发送成功
-
-                    Log.e("smile", "短信id：" + integer + mPhoneNum);//用于查询本次短信发送详情
-                    //Toast.makeText(,"验证码发送成功",Toast.LENGTH_SHORT);
+                    mBtnSend.setEnabled(false);
+                    timer.start();
                 }
             }
 
 
         });
-        Log.e("Error", "RegisterActivity" + mPhoneNum);
+    }
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        ButterKnife.unbind(this);
+        if (timer != null) {
+            timer.cancel();
+        }
     }
 }
