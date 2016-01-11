@@ -34,6 +34,9 @@
             android:name=".view.viewimpl.MainActivity"
             android:theme="@style/AppTheme.NoActionBar">
         </activity>
+        <activity android:name=".view.viewimpl.ItemDetailActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+        </activity>
     </application>
 
 </manifest>
