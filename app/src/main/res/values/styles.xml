@@ -40,5 +40,9 @@
 
     <style name="OverflowButtonStyle" parent="@android:style/Widget.ActionButton.Overflow">
         <item name="android:src">@drawable/ic_more_vert_white_24dp</item>
+        <item name="android:background">?attr/actionBarItemBackground</item>
+        <item name="android:contentDescription">@string/abc_action_menu_overflow_description</item>
+        <item name="android:minWidth">@dimen/abc_dialog_padding_material</item>
+        <item name="android:minHeight">@dimen/abc_action_button_min_width_overflow_material</item>
     </style>
 </resources>

@@ -61,8 +61,8 @@ public class ContentAdapter extends RecyclerView.Adapter<ContentAdapter.MyViewHo
 
         public MyViewHolder(View view) {
             super(view);
-            imageView = (ImageView) view.findViewById(R.id.pic);
-            title = (TextView) view.findViewById(R.id.name);
+            imageView = (ImageView) view.findViewById(R.id.iv_pic);
+            title = (TextView) view.findViewById(R.id.tv_title);
         }
     }
 

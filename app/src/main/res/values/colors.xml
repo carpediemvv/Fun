@@ -23,5 +23,9 @@
     <color name="bg_state">#FF12c3ef</color>
     <color name="bg_btn_press_color">#FF12c3ef</color>
     <color name="bg_btn_press_red_color">#ff0000</color>
-
+    <!--下拉刷新设置颜色-->
+    <color name="google_red">#d62d20</color>
+    <color name="google_blue">#18FFFF</color>
+    <color name="google_green">#FF12c3ef</color>
+    <color name="google_yellow">#ffa700</color>
 </resources>
