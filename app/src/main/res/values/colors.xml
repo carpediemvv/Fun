@@ -11,10 +11,17 @@
     <!--全局背景基色-->
     <color name="all_base_back">#00E5FF</color>
     <color name="all_base_back1">#00E5FF</color>
+    <color name="item_bg_base_color">#3384FFFF</color>
+
     <!--条目选择背景色-->
     <color name="item_bg_press_color">#5518FFFF</color>
     <color name="item_bg_selected_color">#4484FFFF</color>
     <!--自定义圆形控件-->
     <color name="transparent">#00FFFFFF</color>
     <color name="base_color_text_white">#FFFFFFFF</color>
+    <!--用户设置-->
+    <color name="bg_state">#FF12c3ef</color>
+    <color name="bg_btn_press_color">#FF12c3ef</color>
+    <color name="bg_btn_press_red_color">#ff0000</color>
+
 </resources>

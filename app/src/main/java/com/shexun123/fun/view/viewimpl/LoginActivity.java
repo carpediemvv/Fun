@@ -164,7 +164,6 @@ public class LoginActivity extends BaseActivity implements ProgressGenerator.OnC
     }
 
     private void setRegisterFragment() {
-        Toast.makeText(this, "ceshi", Toast.LENGTH_SHORT).show();
         mRegisterDialogFragment = new UserRegisterDialogFragment();
         mRegisterDialogFragment.show(getFragmentManager().beginTransaction(), "registerDialogFragment");
     }

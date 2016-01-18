@@ -1,0 +1,57 @@
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <SwitchPreference
+        android:defaultValue="true"
+        android:key="WIFI_switch"
+        android:summary="开启WIFI模式，节省流量"
+        android:title="选择WIFI"/>
+    <SwitchPreference
+        android:defaultValue="true"
+        android:key="update_switch"
+        android:summary="开启更新模式，有新版本提示"
+        android:title="检查更新"/>
+    <Preference
+        android:key="clear_data"
+        android:summary="18kb"
+        android:title="清除缓存"
+        >
+
+    </Preference>
+    <Preference
+        android:key="clear_data"
+        android:summary="当前版本1.0"
+        android:title="软件更新"
+        >
+        <intent
+            android:action="android.intent.action.VIEW"
+            android:data="http://www.baidu.com"/>
+    </Preference>
+
+    <!-- NOTE: EditTextPreference accepts EditText attributes. -->
+    <!-- NOTE: EditTextPreference's summary should be set to its value by the activity code. -->
+    <PreferenceScreen
+        android:title="关于我们">
+        <Preference
+
+            android:key="clear_data"
+            android:layout="@layout/aboutuslayout"
+            android:summary="18kb"
+            android:title="清除缓存"
+            />
+    </PreferenceScreen>
+    <PreferenceScreen
+        android:title="联系反馈">
+        <Preference
+            android:layout="@layout/chatuslayout"
+            />
+        <Preference
+            android:key="call"
+            android:title="拨打电话">
+            <intent
+                android:action="android.intent.action.CALL"
+                android:data="tel:18291910677"/>
+        </Preference>
+
+    </PreferenceScreen>
+
+</PreferenceScreen>

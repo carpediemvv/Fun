@@ -8,7 +8,8 @@
     <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
     <uses-permission android:name="android.permission.READ_LOGS"/>
-
+<!--拨打电话-->
+    <uses-permission android:name="android.permission.CALL_PHONE"/>
     <application
         android:name=".MyApplication"
         android:allowBackup="true"
@@ -29,13 +30,25 @@
         <activity
             android:name=".view.viewimpl.LoginActivity"
             android:theme="@style/AppThemeLogin">
+            <intent-filter>
+                <action android:name="cn.com.hpu.edu.SECOND_ACTIVITY"/>
+                <category android:name="android.intent.category.SECOND"/>
+            </intent-filter>
         </activity>
         <activity
             android:name=".view.viewimpl.MainActivity"
             android:theme="@style/AppTheme.NoActionBar">
         </activity>
         <activity android:name=".view.viewimpl.ItemDetailActivity"
-            android:theme="@style/AppTheme.NoActionBar">
+            android:theme="@style/AppTheme.itemToolbar">
+        </activity>
+        <activity android:name=".view.viewimpl.SystemSettingActivity"
+            android:theme="@style/AppTheme">
+
+        </activity>
+        <activity android:name=".view.viewimpl.UserSetting"
+                  android:theme="@style/AppTheme.itemToolbar">
+
         </activity>
     </application>
 

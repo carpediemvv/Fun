@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout android:id="@+id/ll_system_setting"
+              xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical">
+
+    <include layout="@layout/app_bar"/>
+
+   <!-- <Switch
+        android:id="@+id/isWIFI"
+        android:layout_width="match_parent"
+        android:layout_height="72dp"
+        android:layout_gravity="center_horizontal"
+        android:background="@drawable/ripple_test"
+        android:checked="true"
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp"
+        android:text="只在wifi下浏览"
+        android:textSize="18sp"/>-->
+    <!--
+<TextView
+    android:id="@+id/geren"
+    android:layout_width="match_parent"
+    android:layout_height="72dp"
+    android:text="个人设置"/>
+<TextView
+    android:id="@+id/geren2"
+    android:layout_width="match_parent"
+    android:layout_height="72dp"
+    android:text="个人设置"/>
+<TextView
+    android:id="@+id/geren3"
+    android:layout_width="match_parent"
+    android:layout_height="72dp"
+    android:text="个人设置"/>-->
+</LinearLayout>

@@ -34,6 +34,7 @@ public class MainActivity extends BaseActivity
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
         //暂时不需要悬浮按钮
         /*FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -43,7 +44,7 @@ public class MainActivity extends BaseActivity
                         .setAction("Action", null).show();
             }
         });*/
-        
+
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
@@ -128,7 +129,7 @@ public class MainActivity extends BaseActivity
             Toast.makeText(this, "index", Toast.LENGTH_SHORT).show();
             mFragmentTransaction.replace(R.id.main_content, new ContentFragment(), "main_content");
 
-        }else if (id == R.id.nav_find) {
+        } else if (id == R.id.nav_find) {
             Toast.makeText(this, "nav_find", Toast.LENGTH_SHORT).show();
             mFragmentTransaction.replace(R.id.main_content, new TabContentFragment(), "tabmain_content");
 
@@ -144,9 +145,10 @@ public class MainActivity extends BaseActivity
 
         } else if (id == R.id.nav_system_setting) {
             Toast.makeText(this, "nav_system_setting", Toast.LENGTH_SHORT).show();
-
+            IntentUtils.startActivity(this,SystemSettingActivity.class);
         } else if (id == R.id.nav_user_setting) {
             Toast.makeText(this, "nav_user_setting", Toast.LENGTH_SHORT).show();
+            IntentUtils.startActivity(this, UserSetting.class);
 
         } else if (id == R.id.nav_mode) {
             Toast.makeText(this, "nav_mode", Toast.LENGTH_SHORT).show();
