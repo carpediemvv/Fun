@@ -11,16 +11,19 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.ProgressBar;
-import android.widget.SimpleAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.demievil.library.RefreshLayout;
 import com.shexun123.fun.R;
 import com.shexun123.fun.adapter.ContentAdapter;
+import com.shexun123.fun.adapter.MainContentAdapter;
 import com.shexun123.fun.model.modelimpl.ModelBean;
+import com.shexun123.fun.utils.IntentUtils;
+import com.shexun123.fun.view.viewimpl.ItemDetailActivity;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -50,8 +53,9 @@ public class ContentFragment extends Fragment {
     private View footerLayout;
     private TextView textMore;
     private ProgressBar progressBar;
-    private SimpleAdapter mAdapter;
+    private MainContentAdapter mAdapter;
     private ArrayList<Map<String, Object>> mData = new ArrayList<>();
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -94,11 +98,17 @@ public class ContentFragment extends Fragment {
         initAdapter();
         mListView.setAdapter(mAdapter);
 
-
+        mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                IntentUtils.startActivity(getActivity(), ItemDetailActivity.class);
+                Toast.makeText(getActivity(), "position" + position + "id" + id, Toast.LENGTH_SHORT).show();
+            }
+        });
         mRefreshLayout.setColorSchemeResources(R.color.google_blue,
                 R.color.google_green,
-                R.color.google_red,
-                R.color.google_yellow);
+                R.color.google_yellow,
+                R.color.google_red);
 
 
         //使用SwipeRefreshLayout的下拉刷新监听
@@ -123,6 +133,7 @@ public class ContentFragment extends Fragment {
     }
 
     private void initAdapter() {
+/*
         for (int i = 0; i < resId.length; i++) {
             Map<String, Object> listItem = new HashMap<>();
             listItem.put("img", resId[i]);
@@ -130,6 +141,8 @@ public class ContentFragment extends Fragment {
             mData.add(listItem);
         }
         mAdapter = new SimpleAdapter(getActivity(), mData, R.layout.item_card_view, new String[]{"img", "text"}, new int[]{R.id.iv_pic, R.id.tv_title});
+*/
+        mAdapter = new MainContentAdapter(getActivity(), resId, des);
     }
 
 
@@ -200,7 +213,6 @@ public class ContentFragment extends Fragment {
     }
 
 
-
     private void startRefreshIconAnimation(MenuItem item) {
         Animation rotation = AnimationUtils.loadAnimation(getActivity(), R.anim.refresh_icon_rotate);
         rotation.setRepeatCount(Animation.INFINITE);
@@ -215,6 +227,7 @@ public class ContentFragment extends Fragment {
             item.getActionView().setClickable(true);
         }
     }
+
     @Override
     public void onDestroyView() {
         super.onDestroyView();

@@ -13,6 +13,7 @@ import android.view.MenuItem;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.shexun123.fun.MyApplication;
 import com.shexun123.fun.R;
 import com.shexun123.fun.utils.IntentUtils;
 import com.shexun123.fun.view.viewimpl.fragment.ContentFragment;
@@ -76,7 +77,7 @@ public class MainActivity extends BaseActivity
         // Fragment contentFragment = supportFragmentManager.findFragmentByTag(CONTENT_UI);
 
     }
-
+    private static long firstTime;
     /**
      * 返回键触发的事件
      */
@@ -87,7 +88,15 @@ public class MainActivity extends BaseActivity
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
-            super.onBackPressed();
+            // TODO Auto-generated method stub
+            if (firstTime + 2000 > System.currentTimeMillis()) {
+                MyApplication.getInstance().fileList();
+                super.onBackPressed();
+            } else {
+               Toast.makeText(this,"再按一次退出",Toast.LENGTH_SHORT).show();
+            }
+            firstTime = System.currentTimeMillis();
+
         }
 
     }
@@ -142,7 +151,7 @@ public class MainActivity extends BaseActivity
 
         } else if (id == R.id.nav_publish) {
             Toast.makeText(this, "nav_publish", Toast.LENGTH_SHORT).show();
-
+            IntentUtils.startActivity(this, PublishActivity.class);
         } else if (id == R.id.nav_system_setting) {
             Toast.makeText(this, "nav_system_setting", Toast.LENGTH_SHORT).show();
             IntentUtils.startActivity(this,SystemSettingActivity.class);

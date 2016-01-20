@@ -50,6 +50,10 @@
                   android:theme="@style/AppTheme.itemToolbar">
 
         </activity>
+        <activity android:name=".view.viewimpl.PublishActivity"
+                  android:theme="@style/AppTheme.itemToolbar">
+
+        </activity>
     </application>
 
 </manifest>
