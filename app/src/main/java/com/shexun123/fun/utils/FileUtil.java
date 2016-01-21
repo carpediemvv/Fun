@@ -46,7 +46,7 @@ public class FileUtil {
 		try {
 			String suffix = "";
 			if (filePath == null || filePath.trim().length() == 0) {
-				filePath = Environment.getExternalStorageDirectory() + "/SX/" + dateFolder + "/";
+				filePath = Environment.getExternalStorageDirectory() + "/Fun/" + dateFolder + "/";
 			}
 			File file = new File(filePath);
 			if (!file.exists()) {

@@ -10,6 +10,9 @@
     <uses-permission android:name="android.permission.READ_LOGS"/>
 <!--拨打电话-->
     <uses-permission android:name="android.permission.CALL_PHONE"/>
+    <!--xUtils需要的权限-->
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <application
         android:name=".MyApplication"
         android:allowBackup="true"
@@ -52,6 +55,9 @@
         </activity>
         <activity android:name=".view.viewimpl.PublishActivity"
                   android:theme="@style/AppTheme.itemToolbar">
+
+        </activity>
+        <activity android:name="com.soundcloud.android.crop.CropImageActivity">
 
         </activity>
     </application>

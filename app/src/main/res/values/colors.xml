@@ -28,4 +28,9 @@
     <color name="google_blue">#18FFFF</color>
     <color name="google_green">#FF12c3ef</color>
     <color name="google_yellow">#ffa700</color>
+    <!--个人设置选择头像-->
+    <color name="select_pic_bg">#FF0EA0C4</color>
+    <color name="all_bg_color">#FF12c3ef</color>
+    <!--Dialog对话框按钮字体颜色-->
+    <color name="bg_btn_press_dialog_color">#f10a4f</color>
 </resources>

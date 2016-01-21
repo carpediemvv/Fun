@@ -15,10 +15,15 @@ import android.widget.Toast;
 
 import com.shexun123.fun.MyApplication;
 import com.shexun123.fun.R;
+import com.shexun123.fun.bean.UserBO;
 import com.shexun123.fun.utils.IntentUtils;
 import com.shexun123.fun.view.viewimpl.fragment.ContentFragment;
 import com.shexun123.fun.view.viewimpl.fragment.TabContentFragment;
 import com.shexun123.fun.widget.CircularImageView;
+
+import org.xutils.x;
+
+import cn.bmob.v3.BmobUser;
 
 public class MainActivity extends BaseActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -28,6 +33,7 @@ public class MainActivity extends BaseActivity
     private TextView mUserSignature;
     private FragmentManager mFragmentManager;
     private FragmentTransaction mFragmentTransaction;
+    private UserBO mCurrentUser;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,16 +57,26 @@ public class MainActivity extends BaseActivity
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.setDrawerListener(toggle);
         toggle.syncState();
-
+        setTopUser();//设置头布局
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
-        mUserPhoto = (CircularImageView) findViewById(R.id.cover_user_photo);
-        mUserName = (TextView) findViewById(R.id.tv_user_name);
-        mUserSignature = (TextView) findViewById(R.id.tv_user_signature);
 
-        mUserPhoto.setImageResource(R.mipmap.ic_launcher);
 
         navigationView.setNavigationItemSelectedListener(this);
         initFragment();
+    }
+
+    /**
+     * 设置头布局
+     */
+    private void setTopUser() {
+        mCurrentUser = BmobUser.getCurrentUser(mApplicationContext, UserBO.class);
+        mUserPhoto = (CircularImageView) findViewById(R.id.cover_user_photo);
+        mUserName = (TextView) findViewById(R.id.tv_user_name);
+        mUserSignature = (TextView) findViewById(R.id.tv_user_signature);
+        mUserSignature.setText(mCurrentUser.getSignature()   );
+        mUserName.setText(mCurrentUser.getUsername());
+        String userPhoneFileURL = mCurrentUser.getFileURL();
+        x.image().bind(mUserPhoto, userPhoneFileURL);
     }
 
     /**
