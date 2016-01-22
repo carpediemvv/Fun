@@ -12,7 +12,7 @@
         android:id="@+id/list"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#FFFFFF"
+        android:background="?containerBackground"
         android:dividerHeight="1px"
         android:footerDividersEnabled="false"
         tools:listitem="@layout/list_item" />
