@@ -10,6 +10,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.shexun123.fun.MyApplication;
 import com.shexun123.fun.R;
 
 import butterknife.Bind;
@@ -32,6 +33,12 @@ public class SystemSettingActivity extends Activity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        MyApplication myApplication=(MyApplication)getApplication();
+        if (myApplication.isNightMode())
+            setTheme(R.style.AppTheme_NoActionBar_night);
+        else
+            setTheme(R.style.AppTheme_NoActionBar_day);
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.system_setting_layout);
         ButterKnife.bind(this);

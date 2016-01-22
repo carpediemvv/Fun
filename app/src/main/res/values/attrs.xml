@@ -12,5 +12,6 @@
     <declare-styleable name="Theme">
         <attr name="circularImageViewStyle" format="reference"/>
     </declare-styleable>
-
+    <!--夜间模式属性-->
+    <attr name="containerBackground" format="reference|color"></attr>
 </resources>

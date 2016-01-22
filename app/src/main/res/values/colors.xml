@@ -33,4 +33,8 @@
     <color name="all_bg_color">#FF12c3ef</color>
     <!--Dialog对话框按钮字体颜色-->
     <color name="bg_btn_press_dialog_color">#f10a4f</color>
+    <!--夜间模式-->
+    <color name="green_light">#8e9ea4</color>
+    <color name="green">#34515c</color>
+    <color name="green_dark">#1e3e4a</color>
 </resources>

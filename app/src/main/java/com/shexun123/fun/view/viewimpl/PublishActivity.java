@@ -20,6 +20,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.shexun123.fun.MyApplication;
 import com.shexun123.fun.R;
 import com.shexun123.fun.bean.MainContent;
 import com.shexun123.fun.bean.UserBO;
@@ -59,6 +60,12 @@ public class PublishActivity extends BaseActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        MyApplication myApplication=(MyApplication)getApplication();
+        if (myApplication.isNightMode())
+            setTheme(R.style.AppTheme_NoActionBar_night);
+        else
+            setTheme(R.style.AppTheme_NoActionBar_day);
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit);
         ButterKnife.bind(this);

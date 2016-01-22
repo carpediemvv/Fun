@@ -3,6 +3,7 @@ package com.shexun123.fun.view.viewimpl;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -34,10 +35,19 @@ public class MainActivity extends BaseActivity
     private FragmentManager mFragmentManager;
     private FragmentTransaction mFragmentTransaction;
     private UserBO mCurrentUser;
+    private boolean mIsNightMode = false;
+    private MyApplication mMyApplication;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        MyApplication myApplication=(MyApplication)getApplication();
+        if (myApplication.isNightMode())
+            setTheme(R.style.AppTheme_NoActionBar_night);
+        else
+            setTheme(R.style.AppTheme_NoActionBar_day);
         super.onCreate(savedInstanceState);
+        mMyApplication = (MyApplication)getApplication();
+        mIsNightMode = mMyApplication.isNightMode();
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -64,6 +74,32 @@ public class MainActivity extends BaseActivity
         navigationView.setNavigationItemSelectedListener(this);
         initFragment();
     }
+
+ @Override
+    protected void onResume() {
+        super.onResume();
+        if (mIsNightMode!=mMyApplication.isNightMode()) {
+            new Handler().postDelayed(new Runnable() {
+                public void run() {
+                    recreate();
+                }
+            }, 1);
+
+        }
+    }
+
+  /*  @Override
+    protected void onResume() {
+        super.recreateOnResume();
+        MyApplication myApplication=(MyApplication)getApplication();
+        if (myApplication.isNightMode()) {
+            new Handler().postDelayed(new Runnable() {
+                public void run() {
+                    recreate();
+                }
+            }, 100);
+        }
+    }*/
 
     /**
      * 设置头布局
@@ -177,7 +213,21 @@ public class MainActivity extends BaseActivity
 
         } else if (id == R.id.nav_mode) {
             Toast.makeText(this, "nav_mode", Toast.LENGTH_SHORT).show();
+            MyApplication myApplication=(MyApplication)getApplication();
+            if(myApplication.isNightMode()==false){
+                myApplication.setIsNightMode(true);
 
+            }else {
+            myApplication.setIsNightMode(false);
+            }
+            if (mIsNightMode!=mMyApplication.isNightMode()) {
+                new Handler().postDelayed(new Runnable() {
+                    public void run() {
+                        recreate();
+                    }
+                }, 1);
+
+            }
         }
         mFragmentTransaction.commit();
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

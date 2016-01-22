@@ -7,6 +7,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
+import com.shexun123.fun.MyApplication;
 import com.shexun123.fun.R;
 import com.shexun123.fun.utils.IntentUtils;
 
@@ -19,6 +20,12 @@ public class ItemDetailActivity extends BaseActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        MyApplication myApplication=(MyApplication)getApplication();
+        if (myApplication.isNightMode())
+            setTheme(R.style.AppTheme_NoActionBar_night);
+        else
+            setTheme(R.style.AppTheme_NoActionBar_day);
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.item_detial_layout);
         mToolbar = (Toolbar) findViewById(R.id.toolbar);

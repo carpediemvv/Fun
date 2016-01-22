@@ -24,6 +24,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.shexun123.fun.MyApplication;
 import com.shexun123.fun.R;
 import com.shexun123.fun.bean.UserBO;
 import com.shexun123.fun.utils.FileUtil;
@@ -102,6 +103,12 @@ public class UserSetting extends BaseActivity implements View.OnClickListener {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        MyApplication myApplication=(MyApplication)getApplication();
+        if (myApplication.isNightMode())
+            setTheme(R.style.AppTheme_NoActionBar_night);
+        else
+            setTheme(R.style.AppTheme_NoActionBar_day);
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_setting);
         ButterKnife.bind(this);
