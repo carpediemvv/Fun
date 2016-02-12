@@ -140,7 +140,6 @@ public class MainActivity extends BaseActivity
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
-            // TODO Auto-generated method stub
             if (firstTime + 2000 > System.currentTimeMillis()) {
                 MyApplication.getInstance().fileList();
                 super.onBackPressed();

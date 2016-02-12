@@ -21,16 +21,20 @@ import com.demievil.library.RefreshLayout;
 import com.shexun123.fun.R;
 import com.shexun123.fun.adapter.ContentAdapter;
 import com.shexun123.fun.adapter.MainContentAdapter;
+import com.shexun123.fun.bean.MainContent;
 import com.shexun123.fun.model.modelimpl.ModelBean;
 import com.shexun123.fun.utils.IntentUtils;
 import com.shexun123.fun.view.viewimpl.ItemDetailActivity;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import cn.bmob.v3.BmobQuery;
+import cn.bmob.v3.listener.FindListener;
 
 /**
  * Created by Administrator on 2016/1/6.
@@ -43,10 +47,8 @@ public class ContentFragment extends Fragment {
     RefreshLayout mSwipeContainer;
     private View mView;
     private ArrayList<ModelBean> mBeanList;
-    private String des[] = {"云层里的阳光", "好美的海滩", "好美的海滩", "夕阳西下的美景", "夕阳西下的美景"
-            , "夕阳西下的美景", "夕阳西下的美景", "夕阳西下的美景", "好美的海滩"};
-    private int resId[] = {R.drawable.img1, R.drawable.img2, R.drawable.img2, R.drawable.img3,
-            R.drawable.img4, R.drawable.img5, R.drawable.img3, R.drawable.img1};
+
+    private List<MainContent> Itemlist;//查询出来的数据
     private ContentAdapter mContentAdapter;
     private RefreshLayout mRefreshLayout;
     private ListView mListView;
@@ -59,7 +61,6 @@ public class ContentFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
     }
 
     @Nullable
@@ -84,7 +85,7 @@ public class ContentFragment extends Fragment {
         textMore.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                simulateLoadingData();
+                LoadingData();
             }
         });
 
@@ -94,10 +95,15 @@ public class ContentFragment extends Fragment {
         mListView.addFooterView(footerLayout);
         mRefreshLayout.setChildView(mListView);
 
+        //先放一个数据
+       /* Itemlist=new ArrayList<>();
+        MainContent mainContent=new MainContent();
+        mainContent.setContent("测试内容");
+        Itemlist.add(mainContent);*/
 
+        Itemlist= (List<MainContent>) getActivity().getIntent().getSerializableExtra("list");
         initAdapter();
         mListView.setAdapter(mAdapter);
-
         mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -116,7 +122,7 @@ public class ContentFragment extends Fragment {
         mRefreshLayout.setOnRefreshListener(new RefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                simulateFetchingData();
+                FetchingData();
             }
         });
 
@@ -126,23 +132,14 @@ public class ContentFragment extends Fragment {
         mRefreshLayout.setOnLoadListener(new RefreshLayout.OnLoadListener() {
             @Override
             public void onLoad() {
-                simulateLoadingData();
+                LoadingData();
             }
         });
 
     }
 
     private void initAdapter() {
-/*
-        for (int i = 0; i < resId.length; i++) {
-            Map<String, Object> listItem = new HashMap<>();
-            listItem.put("img", resId[i]);
-            listItem.put("text", "Item " + des[i]);
-            mData.add(listItem);
-        }
-        mAdapter = new SimpleAdapter(getActivity(), mData, R.layout.item_card_view, new String[]{"img", "text"}, new int[]{R.id.iv_pic, R.id.tv_title});
-*/
-        mAdapter = new MainContentAdapter(getActivity(), resId, des);
+        mAdapter = new MainContentAdapter(getActivity(), Itemlist );
     }
 
 
@@ -151,10 +148,30 @@ public class ContentFragment extends Fragment {
      * simulate getting new data when pull to refresh
      */
     private void getNewTopData() {
-        Map<String, Object> listItem = new HashMap<>();
-        listItem.put("img", R.mipmap.ic_launcher);
-        listItem.put("text", "New Top Item " + mData.size());
-        mData.add(0, listItem);
+        Log.e("ContentFragment", "马上查询数据" );
+        BmobQuery<MainContent> query = new BmobQuery<MainContent>();
+        //根据时间降序排列
+        query.order("-createdAt");
+        query.findObjects(getActivity(), new FindListener<MainContent>() {
+            @Override
+            public void onSuccess(List<MainContent> list) {
+                 Log.e("ContentFragment", "查询的数据是" + list.size());
+                Itemlist=list;
+                for(MainContent mainContent:list ){
+                    Log.e("ContentFragment", "查询的数据是" + mainContent.getTitle());
+                    Log.e("ContentFragment", "查询的数据是" + mainContent.getContent());
+                    Log.e("ContentFragment", "查询的数据是" + mainContent.getAuthor());
+                    Log.e("ContentFragment", "查询的数据是" + mainContent.getContentfigureurl().getFileUrl(getActivity()));
+
+                }
+            }
+
+            @Override
+            public void onError(int i, String s) {
+                Log.e("ContentFragment", "查询数据失败"+i+s);
+                Toast.makeText(getActivity(), "查询失败", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
 
@@ -177,13 +194,14 @@ public class ContentFragment extends Fragment {
      * 模拟一个耗时操作，获取完数据后刷新ListView
      * simulate update ListView and stop refresh after a time-consuming task
      */
-    private void simulateFetchingData() {
+    private void FetchingData() {
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
                 getNewTopData();
                 mRefreshLayout.setRefreshing(false);
-                mAdapter.notifyDataSetChanged();
+                mAdapter.refresh(Itemlist);
+               // mAdapter.notifyDataSetChanged();
                 textMore.setVisibility(View.VISIBLE);
                 progressBar.setVisibility(View.GONE);
                 Toast.makeText(getActivity(), "Refresh Finished!", Toast.LENGTH_SHORT).show();
@@ -196,7 +214,7 @@ public class ContentFragment extends Fragment {
      * 模拟一个耗时操作，加载完更多底部数据后刷新ListView
      * simulate update ListView and stop load more after after a time-consuming task
      */
-    private void simulateLoadingData() {
+    private void LoadingData() {
         textMore.setVisibility(View.GONE);
         progressBar.setVisibility(View.VISIBLE);
         new Handler().postDelayed(new Runnable() {
