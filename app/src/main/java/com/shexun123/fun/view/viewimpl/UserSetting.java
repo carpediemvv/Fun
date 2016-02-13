@@ -27,7 +27,9 @@ import android.widget.Toast;
 import com.shexun123.fun.MyApplication;
 import com.shexun123.fun.R;
 import com.shexun123.fun.bean.UserBO;
+import com.shexun123.fun.utils.CacheUtils;
 import com.shexun123.fun.utils.FileUtil;
+import com.shexun123.fun.utils.IntentUtils;
 import com.shexun123.fun.widget.CircularImageView;
 import com.shexun123.fun.widget.SelectPicPopupWindow;
 import com.soundcloud.android.crop.Crop;
@@ -117,6 +119,20 @@ public class UserSetting extends BaseActivity implements View.OnClickListener {
         initUserData();
         mUserBO = new UserBO();
         getUserInfo();
+        outUser();
+    }
+
+    /**
+     * 退出登录
+     */
+    private void outUser() {
+        mLoginOutEditBtnId.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                IntentUtils.startActivityAndFinish(UserSetting.this,LoginActivity.class);
+                CacheUtils.putString(UserSetting.this, "loginPhoneNumber", null);
+            }
+        });
     }
 
     /**

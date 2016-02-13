@@ -8,8 +8,8 @@
     >
 
     <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:orientation="vertical">
 
 
@@ -25,66 +25,30 @@
 
         <ScrollView
 
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
             <LinearLayout
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
 
                 <ImageView
-                    android:layout_width="match_parent"
-                    android:layout_height="160dp"
-                    android:background="@mipmap/ic_launcher"/>
-
-                <TextView
-                    android:textSize="20dp"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="這是一個測試萬達還在那份 爱上对方但是发放的说法发顺丰
-    的说法发生速度发顺丰撒旦都发顺丰萨芬大师傅的萨芬发生的
-    的说法是发顺丰十大发生的发生的发发生的发顺丰撒的萨芬"/>
-
-                <TextView
-                    android:textSize="20dp"
-
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="這是一個測試萬達還在那份 爱上对方但是发放的说法发顺丰
-    的说法发生速度发顺丰撒旦都发顺丰萨芬大师傅的萨芬发生的
-    的说法是发顺丰十大发生的发生的发发生的发顺丰撒的萨芬"/>
-                <TextView
-                    android:textSize="20dp"
-
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="這是一個測試萬達還在那份 爱上对方但是发放的说法发顺丰
-    的说法发生速度发顺丰撒旦都发顺丰萨芬大师傅的萨芬发生的
-    的说法是发顺丰十大发生的发生的发发生的发顺丰撒的萨芬"/>
-                <TextView
-                    android:textSize="20dp"
-
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="這是一個測試萬達還在那份 爱上对方但是发放的说法发顺丰
-    的说法发生速度发顺丰撒旦都发顺丰萨芬大师傅的萨芬发生的
-    的说法是发顺丰十大发生的发生的发发生的发顺丰撒的萨芬"/>
-
-                <TextView
-                    android:textSize="20dp"
-
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="這是一個測試萬達還在那份 爱上对方但是发放的说法发顺丰
-    的说法发生速度发顺丰撒旦都发顺丰萨芬大师傅的萨芬发生的
-    的说法是发顺丰十大发生的发生的发发生的发顺丰撒的萨芬"/>
-
-                <ImageView
-
+                    android:id="@+id/iv_item"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:scaleType="fitXY"
                     android:background="@mipmap/ic_launcher"/>
+
+                <TextView
+                    android:id="@+id/tv_item"
+                    android:textSize="20dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="這是一個測試萬達還在那份 爱上对方但是发放的说法发顺丰
+    的说法发生速度发顺丰撒旦都发顺丰萨芬大师傅的萨芬发生的
+    的说法是发顺丰十大发生的发生的发发生的发顺丰撒的萨芬"/>
+
             </LinearLayout>
         </ScrollView>
     </LinearLayout>

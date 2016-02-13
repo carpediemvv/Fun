@@ -12,11 +12,23 @@
         android:id="@+id/et_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="标题"
         android:layout_margin="16dp"
+        android:hint="标题"
         android:minLines="1"
         android:paddingTop="20dp"/>
+    <RelativeLayout
+        android:gravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:background="@drawable/bg_pic_edit"
+        >
 
+        <ImageView
+            android:id="@+id/iv_publish_pic"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"/>
+
+    </RelativeLayout>
     <EditText
         android:id="@+id/edit_content"
         android:layout_width="match_parent"
@@ -35,19 +47,7 @@
         <requestFocus/>
     </EditText>
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="80dp"
-        android:layout_below="@id/edit_content"
-        android:background="@drawable/bg_pic_edit"
-        android:paddingTop="8dp"
-        >
-<ImageView
-    android:id="@+id/iv_publish_pic"
-    android:layout_width="wrap_content"
-    android:layout_height="match_parent"/>
 
-    </RelativeLayout>
 
 
     <!-- <Button

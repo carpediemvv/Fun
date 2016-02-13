@@ -1,15 +1,12 @@
 package com.shexun123.fun.view.viewimpl;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.Window;
 
 import com.shexun123.fun.R;
 import com.shexun123.fun.bean.MainContent;
 import com.shexun123.fun.utils.CacheUtils;
-import com.shexun123.fun.utils.IntentUtils;
 
 import java.io.Serializable;
 import java.util.List;
@@ -17,13 +14,13 @@ import java.util.List;
 import cn.bmob.v3.BmobQuery;
 import cn.bmob.v3.listener.FindListener;
 
-public class SplashActivity extends Activity {
+public class SplashActivity extends BaseActivity {
     private List<MainContent> Itemlist;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        requestWindowFeature(Window.FEATURE_NO_TITLE);
+        //requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.splash_activity_layout);
         //初始化数据
         initdata();
@@ -36,6 +33,8 @@ public class SplashActivity extends Activity {
         BmobQuery<MainContent> query = new BmobQuery<MainContent>();
         //根据时间降序排列
         query.order("-createdAt");
+        //限制个数
+        query.setLimit(10);
         query.findObjects(this, new FindListener<MainContent>() {
             @Override
             public void onSuccess(List<MainContent> list) {
@@ -59,15 +58,21 @@ public class SplashActivity extends Activity {
     }
 
     private void init(List<MainContent> list) {
-        String phoneNumber = CacheUtils.getString(SplashActivity.this, "loginPhoneNumber", "null");
-        if (phoneNumber == "null") {
-            IntentUtils.startActivityAndFinishForDelay(this, LoginActivity.class, 1000);
-        } else {
-           // IntentUtils.startActivityAndFinishForDelay(this, MainActivity.class, 500);
-            Intent intent=new Intent(this,MainActivity.class);
-
-           intent.putExtra("list",(Serializable)list);
+        String phoneNumber = CacheUtils.getString(SplashActivity.this, "loginPhoneNumber", null);
+        if (phoneNumber == null) {
+            //IntentUtils.startActivityAndFinishForDelay(this, LoginActivity.class, 1000);
+            Intent intent = new Intent(this, LoginActivity.class);
+            Log.e("SplashActivity", "list"+list.size());
+            intent.putExtra("list", (Serializable) list);
             this.startActivity(intent);
+            finish();
+        } else {
+            // IntentUtils.startActivityAndFinishForDelay(this, MainActivity.class, 500);
+            Intent intent = new Intent(this, MainActivity.class);
+            Log.e("SplashActivity", "list"+list.size());
+            intent.putExtra("list", (Serializable) list);
+            this.startActivity(intent);
+            finish();
         }
 
     }

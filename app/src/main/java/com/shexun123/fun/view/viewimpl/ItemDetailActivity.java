@@ -5,22 +5,33 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.shexun123.fun.MyApplication;
 import com.shexun123.fun.R;
-import com.shexun123.fun.utils.IntentUtils;
+import com.shexun123.fun.bean.MainContent;
+
+import org.xutils.x;
+
+import butterknife.Bind;
+import butterknife.ButterKnife;
 
 /**
  * Created by Administrator on 2016/1/11.
  */
 public class ItemDetailActivity extends BaseActivity {
 
+    @Bind(R.id.iv_item)
+    ImageView mIvItem;
+    @Bind(R.id.tv_item)
+    TextView mTvItem;
     private Toolbar mToolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        MyApplication myApplication=(MyApplication)getApplication();
+        MyApplication myApplication = (MyApplication) getApplication();
         if (myApplication.isNightMode())
             setTheme(R.style.AppTheme_NoActionBar_night);
         else
@@ -28,10 +39,12 @@ public class ItemDetailActivity extends BaseActivity {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.item_detial_layout);
+        ButterKnife.bind(this);
         mToolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(mToolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         init();
+
     }
 
     private void init() {
@@ -41,6 +54,11 @@ public class ItemDetailActivity extends BaseActivity {
                 finish();
             }
         });
+        MainContent mainContent = (MainContent) getIntent().getSerializableExtra("MainContent");
+        String content = mainContent.getContent();
+        String fileUrl = mainContent.getContentfigureurl().getFileUrl(this);
+        x.image().bind(mIvItem,fileUrl);
+        mTvItem.setText(content);
     }
 
     @Override
@@ -60,7 +78,7 @@ public class ItemDetailActivity extends BaseActivity {
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
             Toast.makeText(this, "ceshiyixia", Toast.LENGTH_SHORT).show();
-            IntentUtils.startActivity(this, LoginActivity.class);
+
         }
 
         return super.onOptionsItemSelected(item);

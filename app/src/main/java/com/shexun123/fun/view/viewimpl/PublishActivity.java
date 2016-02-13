@@ -142,12 +142,15 @@ public class PublishActivity extends BaseActivity {
      * 发表
      */
     private void publish() {
-        Toast.makeText(this, "发表", Toast.LENGTH_SHORT).show();
         String title = mEtTitle.getText().toString().trim();
         String content = mEditContent.getText().toString().trim();
 
         if (TextUtils.isEmpty(title)) {
             Toast.makeText(this,"标题不能为空",Toast.LENGTH_SHORT).show();
+            return;
+        }
+        if (mIvPublishPic.getBackground()==null) {
+            Toast.makeText(this, "请选择一张图片", Toast.LENGTH_SHORT).show();
             return;
         }
         if (TextUtils.isEmpty(content)) {

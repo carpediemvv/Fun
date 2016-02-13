@@ -80,7 +80,7 @@
                             android:id="@+id/cover_user_photo"
                             android:layout_width="90dp"
                             android:layout_height="90dp"
-                            android:background="@color/transparent"
+                            android:background="@mipmap/ic_launcher"
                             app:border="true"
                             app:border_color="@color/base_color_text_white"
                             app:border_width="4dp"

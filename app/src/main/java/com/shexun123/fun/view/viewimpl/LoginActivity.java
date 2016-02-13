@@ -1,9 +1,11 @@
 package com.shexun123.fun.view.viewimpl;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.TextInputLayout;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.AutoCompleteTextView;
@@ -14,12 +16,14 @@ import android.widget.Toast;
 
 import com.dd.processbutton.iml.ActionProcessButton;
 import com.shexun123.fun.R;
+import com.shexun123.fun.bean.MainContent;
 import com.shexun123.fun.bean.UserBO;
 import com.shexun123.fun.utils.CacheUtils;
-import com.shexun123.fun.utils.IntentUtils;
 import com.shexun123.fun.utils.ProgressGenerator;
 import com.shexun123.fun.view.viewimpl.fragment.UserRegisterDialogFragment;
 
+import java.io.Serializable;
+import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -48,7 +52,7 @@ public class LoginActivity extends BaseActivity implements ProgressGenerator.OnC
     @Bind(R.id.et_phone_holder)
     TextInputLayout mEtPhoneHolder;
     private UserRegisterDialogFragment mRegisterDialogFragment;
-
+    private List<MainContent> Itemlist;//查询出来的数据
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -144,7 +148,13 @@ public class LoginActivity extends BaseActivity implements ProgressGenerator.OnC
                     Toast.makeText(LoginActivity.this, "登录成功", Toast.LENGTH_SHORT).show();
                     // CacheUtils.putString(LoginActivity.this, LOGIN, mPassWord);
                     //CacheUtils.putString(LoginActivity.this, LOGINNAME, mUserName1);
-                    IntentUtils.startActivityAndFinish(LoginActivity.this, MainActivity.class);
+                    //IntentUtils.startActivityAndFinish(LoginActivity.this, MainActivity.class);
+                    Itemlist= (List<MainContent>) getIntent().getSerializableExtra("list");
+                    Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                    Log.e("SplashActivity", "list" + Itemlist.size());
+                    intent.putExtra("list", (Serializable) Itemlist);
+                    LoginActivity.this.startActivity(intent);
+                    finish();
                     CacheUtils.putString(LoginActivity.this, "loginPhoneNumber", mPhoneNumberString);
                     CacheUtils.putString(LoginActivity.this,"loginPassWord",mPasswordString);
                 } else {

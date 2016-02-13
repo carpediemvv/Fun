@@ -1,6 +1,7 @@
 package com.shexun123.fun.view.viewimpl.fragment;
 
 import android.app.Fragment;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.Nullable;
@@ -23,7 +24,6 @@ import com.shexun123.fun.adapter.ContentAdapter;
 import com.shexun123.fun.adapter.MainContentAdapter;
 import com.shexun123.fun.bean.MainContent;
 import com.shexun123.fun.model.modelimpl.ModelBean;
-import com.shexun123.fun.utils.IntentUtils;
 import com.shexun123.fun.view.viewimpl.ItemDetailActivity;
 
 import java.util.ArrayList;
@@ -102,12 +102,16 @@ public class ContentFragment extends Fragment {
         Itemlist.add(mainContent);*/
 
         Itemlist= (List<MainContent>) getActivity().getIntent().getSerializableExtra("list");
+        Log.e("contentFragment", "list"+Itemlist.size());
         initAdapter();
         mListView.setAdapter(mAdapter);
         mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                IntentUtils.startActivity(getActivity(), ItemDetailActivity.class);
+               // IntentUtils.startActivity(getActivity(), ItemDetailActivity.class);
+                Intent intent = new Intent(getActivity(), ItemDetailActivity.class);
+                intent.putExtra("MainContent", Itemlist.get(position));
+                getActivity().startActivity(intent);
                 Toast.makeText(getActivity(), "position" + position + "id" + id, Toast.LENGTH_SHORT).show();
             }
         });
@@ -136,6 +140,12 @@ public class ContentFragment extends Fragment {
             }
         });
 
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        FetchingData();
     }
 
     private void initAdapter() {
@@ -200,8 +210,8 @@ public class ContentFragment extends Fragment {
             public void run() {
                 getNewTopData();
                 mRefreshLayout.setRefreshing(false);
+                mAdapter.notifyDataSetChanged();
                 mAdapter.refresh(Itemlist);
-               // mAdapter.notifyDataSetChanged();
                 textMore.setVisibility(View.VISIBLE);
                 progressBar.setVisibility(View.GONE);
                 Toast.makeText(getActivity(), "Refresh Finished!", Toast.LENGTH_SHORT).show();

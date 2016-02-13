@@ -2,7 +2,6 @@ package com.shexun123.fun.view.viewimpl;
 
 import android.content.Context;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 
 import cn.bmob.v3.Bmob;
@@ -27,11 +26,11 @@ public class BaseActivity extends AppCompatActivity {
     /**
      * wait a time until the onresume finish
      */
-    protected void recreateOnResume()   {
+    /*protected void recreateOnResume()   {
         new Handler().postDelayed(new Runnable() {
             public void run() {
                 recreate();
             }
         }, 100);
-    }
+    }*/
 }
