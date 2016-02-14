@@ -179,7 +179,7 @@ public class ContentFragment extends Fragment {
             @Override
             public void onError(int i, String s) {
                 Log.e("ContentFragment", "查询数据失败"+i+s);
-                Toast.makeText(getActivity(), "查询失败", Toast.LENGTH_SHORT).show();
+               // Toast.makeText(getActivity(), "查询失败", Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -214,7 +214,6 @@ public class ContentFragment extends Fragment {
                 mAdapter.refresh(Itemlist);
                 textMore.setVisibility(View.VISIBLE);
                 progressBar.setVisibility(View.GONE);
-                Toast.makeText(getActivity(), "Refresh Finished!", Toast.LENGTH_SHORT).show();
             }
         }, 2000);
     }
