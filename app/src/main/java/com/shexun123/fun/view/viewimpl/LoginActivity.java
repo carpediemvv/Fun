@@ -53,6 +53,7 @@ public class LoginActivity extends BaseActivity implements ProgressGenerator.OnC
     TextInputLayout mEtPhoneHolder;
     private UserRegisterDialogFragment mRegisterDialogFragment;
     private List<MainContent> Itemlist;//查询出来的数据
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -92,8 +93,8 @@ public class LoginActivity extends BaseActivity implements ProgressGenerator.OnC
             return;
         } else {
             mEtPhoneHolder.setErrorEnabled(false);
-           // mEtPhoneHolder.setBackgroundColor(getResources().getColor(R.color.phone_number_bg));
-           // mPhoneNumber.setBackgroundColor(getResources().getColor(R.color.phone_number_bg));
+            // mEtPhoneHolder.setBackgroundColor(getResources().getColor(R.color.phone_number_bg));
+            // mPhoneNumber.setBackgroundColor(getResources().getColor(R.color.phone_number_bg));
             mBtnSignIn.setEnabled(true);
 
         }
@@ -109,6 +110,7 @@ public class LoginActivity extends BaseActivity implements ProgressGenerator.OnC
                     hideSoftInputFromWindow(view.getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
         }
     }
+
     private void initLogin() {
         //  final ProgressGenerator progressGenerator = new ProgressGenerator(this);
         mBtnSignIn.setMode(ActionProcessButton.Mode.ENDLESS);
@@ -119,6 +121,7 @@ public class LoginActivity extends BaseActivity implements ProgressGenerator.OnC
                 //   progressGenerator.start(mBtnSignIn);
                 hideKeyboard();//隐藏键盘
                 toLogin();
+
             }
 
 
@@ -149,14 +152,26 @@ public class LoginActivity extends BaseActivity implements ProgressGenerator.OnC
                     // CacheUtils.putString(LoginActivity.this, LOGIN, mPassWord);
                     //CacheUtils.putString(LoginActivity.this, LOGINNAME, mUserName1);
                     //IntentUtils.startActivityAndFinish(LoginActivity.this, MainActivity.class);
-                    Itemlist= (List<MainContent>) getIntent().getSerializableExtra("list");
-                    Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+
+                            Itemlist = (List<MainContent>) getIntent().getSerializableExtra("list");
+                            final Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                     Log.e("SplashActivity", "list" + Itemlist.size());
                     intent.putExtra("list", (Serializable) Itemlist);
-                    LoginActivity.this.startActivity(intent);
-                    finish();
+                    new Thread(){
+                        @Override
+                        public void run() {
+                            try {
+                                Thread.sleep(2000);
+                            } catch (InterruptedException e) {
+                                e.printStackTrace();
+                            }
+                            LoginActivity.this.startActivity(intent);
+                            finish();
+                        }
+                    }.start();
+
                     CacheUtils.putString(LoginActivity.this, "loginPhoneNumber", mPhoneNumberString);
-                    CacheUtils.putString(LoginActivity.this,"loginPassWord",mPasswordString);
+                    CacheUtils.putString(LoginActivity.this, "loginPassWord", mPasswordString);
                 } else {
                     switch (e.getErrorCode()) {
                         case 101:
