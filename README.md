@@ -28,7 +28,7 @@
 个人信息设置和夜间模式都实现了，不过夜间模式还有点小bug
 
 ###还有很多功能没有实现，后期我会慢慢把剩下的收藏和发现功能实现了。
-[点我下载apk](http://blog.csdn.net/guodongxiaren "马上下载")  
+[点我下载apk](https://github.com/carpediemvv/Fun/blob/master/apk%2Ffun.apk "马上下载")  
 
 ####联系方式：240027695@qq.com
 
